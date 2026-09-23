@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="ep-card bg-white p-4 p-md-5">
+    <h1 class="fw-bold mb-2">EventPilot</h1>
+    <p class="ep-muted mb-4">
+        Manage events, registrations, and attendees — with a clean architecture backend.
+    </p>
+
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary" asp-page="/Events/Index">Browse events</a>
+        <a class="btn btn-outline-secondary" asp-page="/Login">Login</a>
+    </div>
+
+    <hr class="my-4" />
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3">
+                <div class="fw-semibold">Events</div>
+                <div class="small ep-muted">List and create events.</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3">
+                <div class="fw-semibold">Registrations</div>
+                <div class="small ep-muted">Register users and prevent duplicates.</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3">
+                <div class="fw-semibold">Identity</div>
+                <div class="small ep-muted">Login + forgot/reset password flow.</div>
+            </div>
+        </div>
+    </div>
+</div>

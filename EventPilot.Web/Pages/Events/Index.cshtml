@@ -1,0 +1,42 @@
+﻿@page
+@model EventPilot.Web.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "Events";
+}
+
+<div class="ep-card bg-white p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-semibold mb-0">Events</h2>
+        <a class="btn btn-outline-secondary btn-sm" asp-page="/Index">Home</a>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Error))
+    {
+        <div class="alert alert-danger">@Model.Error</div>
+    }
+
+    @if (Model.Events.Count == 0 && string.IsNullOrWhiteSpace(Model.Error))
+    {
+        <p class="text-muted mb-0">No events found.</p>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var e in Model.Events)
+            {
+                <a class="list-group-item list-group-item-action"
+                   asp-page="/Events/Details"
+                   asp-route-id="@e.Id">
+                    <div class="fw-semibold">@e.Title</div>
+                    <div class="small text-muted">
+                        @e.StartsAtText
+                        @if (!string.IsNullOrWhiteSpace(e.Location))
+                        {
+                            <span> • @e.Location</span>
+                        }
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>

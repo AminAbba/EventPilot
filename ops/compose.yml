@@ -1,0 +1,19 @@
+# Local supporting services only. SQL Server remains independently configured.
+services:
+  redis:
+    image: redis:8.2-alpine
+    ports: ["127.0.0.1:6379:6379"]
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.5
+    ports:
+      - "127.0.0.1:18888:18888"
+      - "127.0.0.1:4317:18889"
+    environment:
+      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
+# Dashboard is intentionally loopback-only for local development, never public hosting.

@@ -1,0 +1,57 @@
+﻿@page
+@model EventPilot.Web.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="ep-card bg-white p-4">
+    <h2 class="fw-semibold mb-3">Create account</h2>
+
+    <form method="post" class="d-grid gap-3">
+        <div>
+            <label class="form-label">Full name</label>
+            <input class="form-control" asp-for="FullName" />
+            <span class="text-danger small" asp-validation-for="FullName"></span>
+        </div>
+
+        <div>
+            <label class="form-label">Email</label>
+            <input class="form-control" asp-for="Email" />
+            <span class="text-danger small" asp-validation-for="Email"></span>
+        </div>
+
+        <div>
+            <label class="form-label">Password</label>
+            <input class="form-control" asp-for="Password" type="password" />
+            <span class="text-danger small" asp-validation-for="Password"></span>
+        </div>
+
+        <div>
+            <label class="form-label">Confirm password</label>
+            <input class="form-control" asp-for="ConfirmPassword" type="password" />
+            <span class="text-danger small" asp-validation-for="ConfirmPassword"></span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" disabled="@Model.IsBusy">
+            @(Model.IsBusy ? "Creating..." : "Sign up")
+        </button>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Error))
+    {
+        <div class="alert alert-danger mt-3 mb-0">@Model.Error</div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.Success))
+    {
+        <div class="alert alert-success mt-3 mb-0">@Model.Success</div>
+    }
+
+    <div class="mt-3 small">
+        Already have an account? <a href="/Login">Login</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

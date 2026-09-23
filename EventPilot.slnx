@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="EventPilot.Application/EventPilot.Application.csproj" />
+  <Project Path="EventPilot.Domain/EventPilot.Domain.csproj" />
+  <Project Path="EventPilot.Infrastructure/EventPilot.Infrastructure.csproj" />
+  <Project Path="EventPilot.Web/EventPilot.Web.csproj" />
+  <Project Path="EventPilot.Tests/EventPilot.Tests.csproj" />
+</Solution>

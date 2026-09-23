@@ -1,0 +1,24 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="ep-card bg-white p-4">
+    <h2 class="fw-semibold mb-2">Something went wrong</h2>
+    <p class="ep-muted mb-3">
+        An unexpected error occurred while processing your request.
+    </p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p class="mb-0">
+            <span class="fw-semibold">Request ID:</span>
+            <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <hr class="my-4" />
+
+    <a class="btn btn-outline-secondary" asp-page="/Index">Back to home</a>
+</div>

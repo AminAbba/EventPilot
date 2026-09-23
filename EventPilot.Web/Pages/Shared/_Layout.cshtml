@@ -1,0 +1,116 @@
+﻿@using EventPilot.Web.Helpers
+
+@{
+    var token = Context.Session.GetToken();
+    var displayName = Context.Session.GetString("DISPLAY_NAME");
+    var isLoggedIn = !string.IsNullOrWhiteSpace(token);
+    var title = ViewData["Title"] as string ?? "EventPilot";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title - EventPilot</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        .ep-container {
+            max-width: 980px;
+        }
+
+        .ep-card {
+            border: 1px solid rgba(0,0,0,.08);
+            border-radius: 16px;
+        }
+
+        .ep-muted {
+            color: rgba(0,0,0,.6);
+        }
+
+        .ep-brand {
+            letter-spacing: .2px;
+        }
+
+        .ep-nav-sep {
+            opacity: .4;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <header class="border-bottom bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container ep-container">
+                <a class="navbar-brand fw-semibold ep-brand" asp-page="/Index">EventPilot</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#epNav"
+                        aria-controls="epNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="epNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Events/Index">Events</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item me-lg-2">
+                                <span class="navbar-text small text-muted">
+                                    سلام @(string.IsNullOrWhiteSpace(displayName) ? "کاربر" : displayName)
+                                </span>
+                            </li>
+                            <li class="nav-item d-none d-lg-block mx-2 ep-nav-sep">|</li>
+                            <li class="nav-item">
+                                <form method="post" asp-page="/Logout" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/ForgotPassword">Forgot password</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container ep-container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top bg-white">
+        <div class="container ep-container py-3 d-flex justify-content-between align-items-center">
+            <span class="small ep-muted">© @DateTime.Now.Year EventPilot</span>
+            <a class="small text-decoration-none" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

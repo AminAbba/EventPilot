@@ -1,0 +1,27 @@
+﻿@page
+@model EventPilot.Web.Pages.LoginModel
+
+<h2>Login</h2>
+
+<form method="post">
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.Error))
+{
+    <p style="color:red">@Model.Error</p>
+}
+
+<p>
+    <a href="/ForgotPassword">Forgot password?</a>
+</p>
